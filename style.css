@@ -83,6 +83,10 @@ button { font: inherit; }
 .nav a { position: relative; text-decoration: none; color: var(--muted); padding: 8px 0; }
 .nav a:hover, .nav a[aria-current] { color: var(--accent); }
 .nav a[aria-current]::after { content: ""; position: absolute; bottom: 2px; left: 0; right: 0; height: 2px; background: var(--accent); }
+.nav .nav-page { display: inline-flex; align-items: center; align-self: center; gap: 5px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 5px; }
+.nav-page svg { width: 13px; height: 13px; flex-shrink: 0; }
+.nav .nav-page:hover, .nav .nav-page[aria-current] { border-color: var(--accent); background: var(--accent-soft); }
+.nav .nav-page[aria-current]::after { content: none; }
 .theme-toggle { order: 2; width: 36px; height: 36px; display: grid; place-items: center; flex-shrink: 0; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; }
 .theme-toggle:hover { color: var(--accent); background: var(--accent-soft); }
 .theme-toggle svg { width: 18px; height: 18px; }
