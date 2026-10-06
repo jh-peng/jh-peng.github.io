@@ -113,6 +113,9 @@ button { font: inherit; }
 .hero-lede a { text-decoration: none; }
 .interest-tags { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 22px 0 0; list-style: none; }
 .interest-tags li { padding: 4px 10px; color: var(--accent); background: var(--accent-soft); border-radius: 4px; font-size: 12px; font-weight: 500; }
+.opportunity-note { display: flex; align-items: baseline; gap: 9px; margin: 22px 0 0; color: var(--accent); font-size: 14px; font-weight: 600; line-height: 1.6; }
+.opportunity-dot { width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: currentColor; }
+.opportunity-note + .hero-links { margin-top: 18px; }
 .hero-links { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 30px; font-size: 13px; }
 .hero-links a, .pub-links a { font-weight: 600; text-decoration: none; }
 .hero-links a:hover, .pub-links a:hover { text-decoration: underline; }
