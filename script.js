@@ -1,38 +1,69 @@
 (() => {
   const themeKey = 'jh-peng-theme';
   const root = document.documentElement;
-  let theme = 'light';
+  let preference = 'system';
+  let theme;
+  let darkQuery;
+  let lightQuery;
+  let updateToggle = () => {};
 
   try {
-    if (localStorage.getItem(themeKey) === 'dark') theme = 'dark';
+    darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    lightQuery = window.matchMedia('(prefers-color-scheme: light)');
+  } catch {
+    // Fall back to dark when the browser cannot report a system preference.
+  }
+
+  const systemTheme = () => {
+    if (darkQuery?.matches) return 'dark';
+    if (lightQuery?.matches) return 'light';
+    return 'dark';
+  };
+
+  try {
+    const saved = localStorage.getItem(themeKey);
+    if (saved === 'light' || saved === 'dark') preference = saved;
   } catch {
     // The page also works when browser storage is unavailable.
   }
 
-  const applyTheme = (nextTheme) => {
-    theme = nextTheme;
+  const applyTheme = () => {
+    theme = preference === 'system' ? systemTheme() : preference;
     root.dataset.theme = theme;
+    root.dataset.themePreference = preference;
+    document.querySelector('meta[name="color-scheme"]').content = theme;
     document.querySelector('meta[name="theme-color"]').content =
       theme === 'dark' ? '#171b24' : '#f8f7f4';
+    updateToggle();
   };
-  applyTheme(theme);
+  applyTheme();
+
+  const followSystem = () => {
+    if (preference === 'system') applyTheme();
+  };
+  for (const query of [darkQuery, lightQuery]) {
+    if (query?.addEventListener) query.addEventListener('change', followSystem);
+    else if (query?.addListener) query.addListener(followSystem);
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('year').textContent = new Date().getFullYear();
     const toggle = document.querySelector('.theme-toggle');
-    const updateToggle = () => {
-      const label = `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`;
+    const nextPreference = () => ({ system: 'light', light: 'dark', dark: 'system' })[preference];
+    updateToggle = () => {
+      const current = preference === 'system' ? `System (${theme})` : preference;
+      const next = nextPreference() === 'system' ? 'Follow system theme' : `Switch to ${nextPreference()} mode`;
+      const label = `Theme: ${current}. ${next}`;
       toggle.setAttribute('aria-label', label);
-      toggle.setAttribute('aria-pressed', String(theme === 'dark'));
       toggle.title = label;
     };
     updateToggle();
     toggle.hidden = false;
     toggle.addEventListener('click', () => {
-      applyTheme(theme === 'dark' ? 'light' : 'dark');
-      updateToggle();
+      preference = nextPreference();
+      applyTheme();
       try {
-        localStorage.setItem(themeKey, theme);
+        localStorage.setItem(themeKey, preference);
       } catch {
         // Keep the toggle usable without persisting the preference.
       }
