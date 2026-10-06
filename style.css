@@ -88,8 +88,8 @@ button { font: inherit; }
 .theme-toggle svg { width: 18px; height: 18px; }
 .theme-toggle svg { display: none; }
 [data-theme-preference="system"] .icon-system,
-[data-theme-preference="light"] .icon-moon,
-[data-theme-preference="dark"] .icon-sun { display: block; }
+[data-theme-preference="light"] .icon-sun,
+[data-theme-preference="dark"] .icon-moon { display: block; }
 
 .hero {
   padding: 70px 0 60px;
