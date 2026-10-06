@@ -187,6 +187,11 @@ main:focus { outline: none; }
 .cv-degree { color: var(--body); font-size: 14px; padding-top: 10px; }
 .cv-status { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 3px; background: var(--accent-soft); color: var(--accent); font-size: 10px; vertical-align: 1px; }
 .cv-detail { color: var(--muted); font-size: 13px; padding-top: 6px; }
+.cv-lab { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 12px; }
+.cv-lab-link { display: block; padding: 6px 8px; background: #fff; border-radius: 4px; }
+.cv-lab-link:hover { outline: 1px solid var(--accent); }
+.cv-lab-logo { display: block; width: 102px; height: auto; }
+.cv-lab .cv-detail { padding-top: 0; }
 .cv-academic { color: var(--body); font-size: 13px; padding-top: 10px; }
 .cv-academic strong { color: var(--ink); font-weight: 600; }
 .cv-academic span { padding: 0 6px; color: var(--muted); }
